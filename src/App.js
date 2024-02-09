@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Movie from "./Movie";
 
 function App() {
   const [Loading, setLoading] = useState(true);
@@ -36,17 +37,16 @@ function App() {
       {
         Loading ? <h3>주간 박스 오피스 데이터를 가져오는 중...</h3>
         :<div>
-          {
-            Movies.map((movie) => {
+          { 
+            Movies.map((movie) => { 
               return (
-                <div key={movie.movieCd} className="movieInfo">
-                  <h4>영화 명: {movie.movieNm}</h4>
-                  <p>개봉 일: {movie.openDt}</p>
-                  <p>누적 관객 수: {movie.audiAcc}명</p>
-                </div>
-              );
-            })
-          }
+                <Movie
+                  key={movie.movieCd}
+                  MovieName={movie.movieNm} 
+                  openDate={movie.openDt} 
+                  AudiCount={movie.audiAcc}
+                />);
+            })}
         </div>
       }
     </div>
