@@ -2,6 +2,7 @@
 import {
 	BrowserRouter as Router,
 	Route,
+  //Switch,
   Routes,
 } from "react-router-dom";
 
@@ -30,10 +31,11 @@ function App(){
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/movie" element={<MovieDetail />} />
+        <Route path="/movie/:id" element={<MovieDetail />} />
       </Routes>
     </Router>
   );
 }
-
+//':id' 대입 연산자 비슷한 거
+//
 export default App;

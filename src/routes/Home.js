@@ -9,7 +9,7 @@ function Home(){
 
     const getMovies = async() => {
         const response = await fetch(
-        "http://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchWeeklyBoxOfficeList.json?key=3a15c5393ac14d11f6b132d6a07f330c&targetDt=20240131"
+        "http://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchWeeklyBoxOfficeList.json?key=3a15c5393ac14d11f6b132d6a07f330c&targetDt=20240224"
         );
         const json = await response.json();
         setMovies(json.boxOfficeResult.weeklyBoxOfficeList);
@@ -40,6 +40,7 @@ function Home(){
                     return (
                         <Movie
                         key={movie.movieCd}
+                        id={movie.movieCd}
                         MovieName={movie.movieNm} 
                         openDate={movie.openDt} 
                         AudiCount={movie.audiAcc}
