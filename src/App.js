@@ -6,19 +6,20 @@ import {
 
 import Home from "./routes/Home";
 import MovieDetail from "./routes/MovieDetail";
+import TodayDate from "./Components/TodayDate";
 
 function App(){
   return (
     <div>
-      <div>
+      <header>
         <h2>일일 박스 오피스</h2>
+        <TodayDate />
         <hr/>
-      </div>
+      </header>
       <Router basename={process.env.PUBLIC_URL}>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/movie/:id" element={<MovieDetail />} 
-          />
+          <Route path="/movie/:id" element={<MovieDetail />} />
         </Routes>
       </Router>
     </div>

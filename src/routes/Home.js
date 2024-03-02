@@ -1,75 +1,72 @@
-import { useState } from "react";
-import { useEffect } from "react";
-
+import { useEffect, useState } from "react";
 import Movie from "../Components/Movie";
+
+const getDate = () => {
+    const TodayDate = new Date();
+
+    function modifyNumber(num){
+        if(num < 10){
+            return "0" + String(num);
+        } else {
+            return num;
+        }
+    }
+
+    let year = TodayDate.getFullYear();
+    let month = modifyNumber(TodayDate.getMonth() + 1);
+    let date = modifyNumber(TodayDate.getDate() - 1);
+
+    let NowDate = `${year}` + month + date;
+    return NowDate;
+}
 
 function Home(){
     const [Loading, setLoading] = useState(true);
-    const [TodayNumber, setTodayNumber] = useState();
     const [Movies, setMovies] = useState([]);
 
-    const getNowDate = () => {
-        const modifyNumber = (num) => {
-            if (num < 10){
-                return "0" + String(num);
-            } else {
-                return num;
-            }
-        }
-
-        const TodayDate = new Date();
-
-        let year = TodayDate.getFullYear();
-        let month = modifyNumber(TodayDate.getMonth() + 1);
-        let date = modifyNumber(TodayDate.getDate());
-
-        setTodayNumber(`${year}` + month + date);
-    }
+    const TargetDate = getDate();
 
     const getMovies = async() => {
         const response = await fetch(
-        "https://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchWeeklyBoxOfficeList.json?key=3a15c5393ac14d11f6b132d6a07f330c&targetDt=20240224"
+            `http://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=3a15c5393ac14d11f6b132d6a07f330c&targetDt=${TargetDate}`
         );
         const json = await response.json();
-        setMovies(json.boxOfficeResult.weeklyBoxOfficeList);
+        setMovies(json.boxOfficeResult.dailyBoxOfficeList);
         setLoading(false);
-        //Before: '.then()'
-        //After: 'aysnc await'
     }
 
     useEffect(() => {
         getMovies();
-        getNowDate();
-    }, []);
-    
+    }, [])
+
     useEffect(() => {
-      if(Movies.length === 0){
-        return;
-      } else {
-          console.log(Movies);
-          console.log(TodayNumber);
+        if(Movies.length === 0){
+            return;
+        } else {
+            console.log(Movies);
+            console.log(TargetDate);
         }
-    }, [Movies]);
-    
+    })
+
     return (
         <div>
             {
-                Loading ? <h3>주간 박스 오피스 데이터를 가져오는 중...</h3>
-                :<div>
-                { 
-                    Movies.map((movie) => { 
-                    return (
-                        <div key={movie.movieCd}>
-                            <Movie
-                                key={movie.movieCd}
-                                id={movie.movieCd}
-                                MovieName={movie.movieNm} 
-                                openDate={movie.openDt} 
-                                AudiCount={movie.audiAcc}
-                            />
-                        </div>
-                        );
-                    })}
+                Loading ? <h3>일일 박스오피스 정보를 가져오는 중...</h3>
+                : <div>
+                    {
+                        Movies.map((movie) => {
+                            return (
+                                <div key={movie.movieCd}>
+                                    <Movie 
+                                        id={movie.movieCd}
+                                        MovieName={movie.movieNm}
+                                        openDate={movie.openDt}
+                                        AudiCount={movie.audiAcc}
+                                    />
+                                </div>
+                            );
+                        })
+                    }
                 </div>
             }
         </div>
