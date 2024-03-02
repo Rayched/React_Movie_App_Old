@@ -22,13 +22,13 @@ function Home(){
         getMovies();
       }, []);
     
-      useEffect(() => {
-        if(Movies.length === 0){
-          return;
-        } else {
+    useEffect(() => {
+      if(Movies.length === 0){
+        return;
+      } else {
           console.log(Movies)
         }
-      }, [Movies]);
+    }, [Movies]);
     
     return (
         <div>
