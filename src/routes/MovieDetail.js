@@ -8,7 +8,7 @@ function MovieDetail(){
 
     const getMovieDetail = async() => {
         const MovieData= await(
-            await fetch(`http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieInfo.json?key=3a15c5393ac14d11f6b132d6a07f330c&movieCd=${id}`)
+            await fetch(`https://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieInfo.json?key=3a15c5393ac14d11f6b132d6a07f330c&movieCd=${id}`)
         ).json();
         setMovieInfo(MovieData);
     };
@@ -17,15 +17,13 @@ function MovieDetail(){
         getMovieDetail();
     }, []);
 
-    setDirName(MovieInfo["directors"]["peopleNm"]);
-
     console.log(MovieInfo);
 
     return (
         <div>
-            <h3>영화 명: {MovieInfo.movieNm}</h3>
-            <p>개봉 일: {MovieInfo.prdtYear}년</p>
-            <p>상영 시간: {MovieInfo.showTm}분</p>
+            <h3>영화 명: {MovieInfo.movieInfoResult.movieInfo.movieNm}</h3>
+            <p>개봉 일: {MovieInfo.movieInfoResult.movieInfo.prdtYear}년</p>
+            <p>상영 시간: {MovieInfo.movieInfoResult.movieInfo.showTm}분</p>
             <p>감독: </p>
         </div>
     );
