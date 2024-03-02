@@ -27,11 +27,10 @@ function Home(){
     const TargetDate = getDate();
 
     const getMovies = async() => {
-        const response = await fetch(
-            `http://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=3a15c5393ac14d11f6b132d6a07f330c&targetDt=${TargetDate}`
-        );
-        const json = await response.json();
-        setMovies(json.boxOfficeResult.dailyBoxOfficeList);
+        const response = await (
+            await fetch(`https://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=3a15c5393ac14d11f6b132d6a07f330c&targetDt=${TargetDate}`)
+        ).json();
+        setMovies(response.boxOfficeResult.dailyBoxOfficeList);
         setLoading(false);
     }
 
