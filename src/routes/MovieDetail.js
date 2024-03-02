@@ -22,7 +22,7 @@ function MovieDetail(){
     useEffect(() => {
         if (MovieInfo.length === 0){
             return;
-        } else {0
+        } else {
             console.log(MovieInfo);
         }
     }, [MovieInfo])

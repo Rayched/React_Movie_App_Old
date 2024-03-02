@@ -5,7 +5,26 @@ import Movie from "../Components/Movie";
 
 function Home(){
     const [Loading, setLoading] = useState(true);
+    const [TodayNumber, setTodayNumber] = useState();
     const [Movies, setMovies] = useState([]);
+
+    const getNowDate = () => {
+        const modifyNumber = (num) => {
+            if (num < 10){
+                return "0" + String(num);
+            } else {
+                return num;
+            }
+        }
+
+        const TodayDate = new Date();
+
+        let year = TodayDate.getFullYear();
+        let month = modifyNumber(TodayDate.getMonth() + 1);
+        let date = modifyNumber(TodayDate.getDate());
+
+        setTodayNumber(`${year}` + month + date);
+    }
 
     const getMovies = async() => {
         const response = await fetch(
@@ -20,13 +39,15 @@ function Home(){
 
     useEffect(() => {
         getMovies();
-      }, []);
+        getNowDate();
+    }, []);
     
     useEffect(() => {
       if(Movies.length === 0){
         return;
       } else {
-          console.log(Movies)
+          console.log(Movies);
+          console.log(TodayNumber);
         }
     }, [Movies]);
     
@@ -38,13 +59,16 @@ function Home(){
                 { 
                     Movies.map((movie) => { 
                     return (
-                        <Movie
-                        key={movie.movieCd}
-                        id={movie.movieCd}
-                        MovieName={movie.movieNm} 
-                        openDate={movie.openDt} 
-                        AudiCount={movie.audiAcc}
-                        />);
+                        <div key={movie.movieCd}>
+                            <Movie
+                                key={movie.movieCd}
+                                id={movie.movieCd}
+                                MovieName={movie.movieNm} 
+                                openDate={movie.openDt} 
+                                AudiCount={movie.audiAcc}
+                            />
+                        </div>
+                        );
                     })}
                 </div>
             }
