@@ -4,7 +4,6 @@ import { useParams } from "react-router-dom";
 function MovieDetail(){
     const [Loading, setLoading] = useState(true);
     const [MovieInfo, setMovieInfo] = useState([]);
-    const [DirName, setDirName] = useState();
     const {id} = useParams();
 
     const getMovieDetail = async() => {
@@ -32,10 +31,39 @@ function MovieDetail(){
             {
                 Loading ? <h3>영화 정보를 가져오고 있습니다...</h3>
                 :<div>
-                    <h3>영화 명: {MovieInfo.movieNm}</h3>
-                    <p>개봉 일: {MovieInfo.prdtYear}년</p>
+                    <h3>
+                        <a 
+                            href={`https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=0&ie=utf8&query=${MovieInfo.movieNm}`}
+                            target="_blank"
+                        >
+                            {MovieInfo.movieNm} / {MovieInfo.movieNmEn}
+                        </a>
+                    </h3>
+                    <p>개봉 일: {MovieInfo.openDt}</p>
                     <p>상영 시간: {MovieInfo.showTm}분</p>
-                    <p>감독: </p>
+                    <p>감독: {MovieInfo.directors[0].peopleNm}</p>
+                    <div>
+                        <p>출연 배우</p>
+                        <ul>
+                            {
+                                MovieInfo.actors.map((actor)=>{
+                                    return <li>{actor.peopleNm}</li>
+                                })
+                            }
+                        </ul>
+                    </div>
+                    <div>
+                        <p>장르</p>
+                        <ul>
+                            {
+                                MovieInfo.genres.map((genre) => {
+                                    return (
+                                        <li>{genre.genreNm}</li>
+                                    )
+                                })
+                            }
+                        </ul>
+                    </div>
                 </div>
             }
         </div>
