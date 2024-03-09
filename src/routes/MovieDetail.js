@@ -30,8 +30,8 @@ function MovieDetail(){
         <div>
             {
                 Loading ? <h3>영화 정보를 가져오고 있습니다...</h3>
-                :<div>
-                    <h3>
+                :<div className="MovieDetails">
+                    <h3 className="MovieNm">
                         <a 
                             href={`https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=0&ie=utf8&query=${MovieInfo.movieNm}`}
                             target="_blank"
@@ -39,30 +39,47 @@ function MovieDetail(){
                             {MovieInfo.movieNm} / {MovieInfo.movieNmEn}
                         </a>
                     </h3>
-                    <p>개봉 일: {MovieInfo.openDt}</p>
-                    <p>상영 시간: {MovieInfo.showTm}분</p>
-                    <p>감독: {MovieInfo.directors[0].peopleNm}</p>
+                    <p>개봉: {MovieInfo.openDt}</p>
+                    <p>러닝 타임: {MovieInfo.showTm}분</p>
+                    <p>
+                        감독: {MovieInfo.directors[0].peopleNm}
+                        / {MovieInfo.directors[0].peopleNmEn}
+                    </p>
                     <div>
-                        <p>출연 배우</p>
-                        <ul>
-                            {
-                                MovieInfo.actors.map((actor)=>{
-                                    return <li>{actor.peopleNm}</li>
-                                })
-                            }
-                        </ul>
+                        {
+                            MovieInfo.actors.length == 0 ? <h5>출연 배우 없음</h5>
+                            : <div>
+                                {
+                                    <div>
+                                        <p>배우</p>
+                                        <ul>
+                                        {
+                                            MovieInfo.actors.map((actor) => {
+                                                return (
+                                                    <li>
+                                                        {actor.peopleNm} / {actor.peopleNmEn}
+                                                    </li>
+                                                )
+                                            })
+                                        }
+                                        </ul>
+                                    </div>
+                                }
+                            </div>
+                        }
                     </div>
                     <div>
-                        <p>장르</p>
-                        <ul>
-                            {
-                                MovieInfo.genres.map((genre) => {
-                                    return (
-                                        <li>{genre.genreNm}</li>
-                                    )
+                        <p>
+                            장르: {
+                                MovieInfo.genres.map((genre, idx) => {
+                                    if (idx + 1 === MovieInfo.genres.length){
+                                        return <span>{genre.genreNm} </span>
+                                    } else {
+                                        return <span>{genre.genreNm}, </span>
+                                    }
                                 })
                             }
-                        </ul>
+                        </p>
                     </div>
                 </div>
             }
