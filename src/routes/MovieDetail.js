@@ -19,12 +19,19 @@ function MovieDetail(){
     }, []);
 
     useEffect(() => {
-        if (MovieInfo.length === 0){
+        if (MovieInfo.length == 0){
             return;
         } else {
             console.log(MovieInfo);
         }
     }, [MovieInfo])
+
+    let openDt = String(MovieInfo.openDt);
+    const ChgOpenDt = [
+        openDt.slice(0, 4) + "년", 
+        openDt.slice(4, 6) + "월",
+        openDt.slice(6, 8) + "일"
+    ].join(" ");
 
     return (
         <div>
@@ -32,20 +39,30 @@ function MovieDetail(){
                 Loading ? <h3>영화 정보를 가져오고 있습니다...</h3>
                 :<div className="MovieDetails">
                     <h3 className="MovieNm">
-                        <a 
-                            href={`https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=0&ie=utf8&query=${MovieInfo.movieNm}`}
-                            target="_blank"
-                        >
+                        <a href={`https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=0&ie=utf8&query=${MovieInfo.movieNm}`}>
                             {MovieInfo.movieNm} / {MovieInfo.movieNmEn}
                         </a>
                     </h3>
-                    <p>개봉: {MovieInfo.openDt}</p>
+                    <p>개봉: {ChgOpenDt}</p>
                     <p>러닝 타임: {MovieInfo.showTm}분</p>
                     <p>
                         감독: {MovieInfo.directors[0].peopleNm}
                         / {MovieInfo.directors[0].peopleNmEn}
                     </p>
-                    <div>
+                    <div className="Genres">
+                        <p>
+                            장르: {
+                                MovieInfo.genres.map((genre, idx) => {
+                                    if (idx + 1 == MovieInfo.genres.length){
+                                        return <span>{genre.genreNm} </span>
+                                    } else {
+                                        return <span>{genre.genreNm}, </span>
+                                    }
+                                })
+                            }
+                        </p>
+                    </div>
+                    <div className="actors">
                         {
                             MovieInfo.actors.length == 0 ? <h5>출연 배우 없음</h5>
                             : <div>
@@ -67,19 +84,6 @@ function MovieDetail(){
                                 }
                             </div>
                         }
-                    </div>
-                    <div>
-                        <p>
-                            장르: {
-                                MovieInfo.genres.map((genre, idx) => {
-                                    if (idx + 1 === MovieInfo.genres.length){
-                                        return <span>{genre.genreNm} </span>
-                                    } else {
-                                        return <span>{genre.genreNm}, </span>
-                                    }
-                                })
-                            }
-                        </p>
                     </div>
                 </div>
             }

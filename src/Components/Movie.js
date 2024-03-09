@@ -2,16 +2,19 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
 function Movie({id, MovieName, openDate, AudiCount}){
+    let AudiC = parseInt(AudiCount);
+    let ConvertAudiC = AudiC.toLocaleString("ko-KR");
+    
     return (
         <div>
             <div>
                 <h4>
                     <Link to={`/movie/${id}`}>
-                        영화 명: {MovieName}
+                        {MovieName}
                     </Link>
                 </h4>
-                <p>개봉 일: {openDate}</p>
-                <p>누적 관객 수: {AudiCount}명</p>
+                <p>개봉: {openDate}</p>
+                <p>누적 관객: {ConvertAudiC}명</p>
             </div>
         </div>
     );

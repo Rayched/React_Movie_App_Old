@@ -39,7 +39,7 @@ function Home(){
     }, [])
 
     useEffect(() => {
-        if(Movies.length === 0){
+        if(Movies.length == 0){
             return;
         } else {
             console.log(Movies);

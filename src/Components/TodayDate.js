@@ -10,26 +10,15 @@ const TodayDate = () => {
         }
     }
 
-    const weekday = [
-        "일요일",
-        "월요일",
-        "화요일",
-        "수요일",
-        "목요일",
-        "금요일",
-        "토요일"
-    ];
-
     let year = Todays.getFullYear();
     let month = modifyNumber(Todays.getMonth() + 1);
-    let date = modifyNumber(Todays.getDate());
-    let day = weekday[Todays.getDay()];
+    let date = modifyNumber(Todays.getDate() - 1);
 
-    const NowDate = `${year}년 ${month}월 ${date}일 ${day}`;
+    const NowDate = `${year}년 ${month}월 ${date}일`;
     
     return (
         <div>
-            <h4>{NowDate}</h4>
+            <h4>{NowDate} 기준</h4>
         </div>
     );
 }
