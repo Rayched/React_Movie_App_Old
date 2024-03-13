@@ -6,15 +6,15 @@ function Movie({id, MovieName, openDate, AudiCount}){
     let ConvertAudiC = AudiC.toLocaleString("ko-KR");
     
     return (
-        <div>
-            <div>
-                <h4>
-                    <Link to={`/movie/${id}`}>
+        <div className="MovieItemBox">
+            <div className="MovieItem">
+                <Link to={`/movie/${id}`}>
+                    <h4 className="MovieTitle">
                         {MovieName}
-                    </Link>
-                </h4>
-                <p>개봉: {openDate}</p>
-                <p>누적 관객: {ConvertAudiC}명</p>
+                    </h4>
+                    <p>개봉: {openDate}</p>
+                    <p>누적 관객: {ConvertAudiC}명</p>
+                </Link>
             </div>
         </div>
     );

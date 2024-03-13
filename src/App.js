@@ -10,11 +10,10 @@ import TodayDate from "./Components/TodayDate";
 
 function App(){
   return (
-    <div>
+    <div className="Container">
       <header>
-        <h2>일일 박스 오피스</h2>
+        <h2 className="MovieApp_Title">일일 박스 오피스</h2>
         <TodayDate />
-        <hr/>
       </header>
       <Router basename={process.env.PUBLIC_URL}>
         <Routes>

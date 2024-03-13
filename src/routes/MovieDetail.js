@@ -38,11 +38,11 @@ function MovieDetail(){
             {
                 Loading ? <h3>영화 정보를 가져오고 있습니다...</h3>
                 :<div className="MovieDetails">
-                    <h3 className="MovieNm">
-                        <a href={`https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=0&ie=utf8&query=${MovieInfo.movieNm}`}>
+                    <div className="MovieNmBox">
+                        <h3 className="MovieNm">
                             {MovieInfo.movieNm} / {MovieInfo.movieNmEn}
-                        </a>
-                    </h3>
+                        </h3>
+                    </div>
                     <p>개봉: {ChgOpenDt}</p>
                     <p>러닝 타임: {MovieInfo.showTm}분</p>
                     <p>
@@ -68,15 +68,21 @@ function MovieDetail(){
                             : <div>
                                 {
                                     <div>
-                                        <p>배우</p>
+                                        <p>출연 배우</p>
                                         <ul>
                                         {
-                                            MovieInfo.actors.map((actor) => {
-                                                return (
-                                                    <li>
-                                                        {actor.peopleNm} / {actor.peopleNmEn}
-                                                    </li>
-                                                )
+                                            MovieInfo.actors.map((actor, idx) => {
+                                                for (let i = 0; i <= 5; i++){
+                                                    if (idx <= 5){
+                                                        return (
+                                                            <li>
+                                                                {actor.peopleNm} / {actor.peopleNmEn}
+                                                            </li>
+                                                        );
+                                                    } else {
+                                                        return;
+                                                    }
+                                                }
                                             })
                                         }
                                         </ul>
@@ -84,6 +90,11 @@ function MovieDetail(){
                                 }
                             </div>
                         }
+                    </div>
+                    <div className="SearchBtn">
+                            <a href={`https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=0&ie=utf8&query=${MovieInfo.movieNm}`}>
+                                네이버 검색
+                            </a>
                     </div>
                 </div>
             }

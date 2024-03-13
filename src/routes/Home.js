@@ -51,7 +51,7 @@ function Home(){
         <div>
             {
                 Loading ? <h3>일일 박스오피스 정보를 가져오는 중...</h3>
-                : <div>
+                : <div className="ItemBox">
                     {
                         Movies.map((movie) => {
                             return (
