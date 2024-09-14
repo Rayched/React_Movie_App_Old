@@ -1,6 +1,12 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
+/**
+ * 
+ * MovieDetail 구조 변경 필요
+ * 
+ * (제목) (본문) (검색)
+ */
 function MovieDetail(){
     const [Loading, setLoading] = useState(true);
     const [MovieInfo, setMovieInfo] = useState([]);
